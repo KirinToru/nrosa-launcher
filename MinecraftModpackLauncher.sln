@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36127.28
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftModpackLauncher", "MinecraftModpackLauncher\MinecraftModpackLauncher.csproj", "{B928BEA0-BECC-4957-8C7B-662CCF07D3DB}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MinecraftModpackLauncher.Installer", "MinecraftModpackLauncher.Installer\MinecraftModpackLauncher.Installer.vdproj", "{EBFD4669-A817-C658-51AC-EB2E5C18184A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B928BEA0-BECC-4957-8C7B-662CCF07D3DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B928BEA0-BECC-4957-8C7B-662CCF07D3DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B928BEA0-BECC-4957-8C7B-662CCF07D3DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B928BEA0-BECC-4957-8C7B-662CCF07D3DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBFD4669-A817-C658-51AC-EB2E5C18184A}.Debug|Any CPU.ActiveCfg = Debug
+		{EBFD4669-A817-C658-51AC-EB2E5C18184A}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4BF03B66-8D73-434A-B7EC-6EC943CCE510}
+	EndGlobalSection
+EndGlobal
