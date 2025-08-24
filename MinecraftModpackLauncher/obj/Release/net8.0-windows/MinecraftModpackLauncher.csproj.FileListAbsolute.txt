@@ -1,0 +1,17 @@
+C:\Users\Kirin\Projects\VS2022\PO\MinecraftModpackLauncher\MinecraftModpackLauncher\bin\Release\net8.0-windows\NROSA Launcher.exe
+C:\Users\Kirin\Projects\VS2022\PO\MinecraftModpackLauncher\MinecraftModpackLauncher\bin\Release\net8.0-windows\NROSA Launcher.deps.json
+C:\Users\Kirin\Projects\VS2022\PO\MinecraftModpackLauncher\MinecraftModpackLauncher\bin\Release\net8.0-windows\NROSA Launcher.runtimeconfig.json
+C:\Users\Kirin\Projects\VS2022\PO\MinecraftModpackLauncher\MinecraftModpackLauncher\bin\Release\net8.0-windows\NROSA Launcher.dll
+C:\Users\Kirin\Projects\VS2022\PO\MinecraftModpackLauncher\MinecraftModpackLauncher\bin\Release\net8.0-windows\NROSA Launcher.pdb
+C:\Users\Kirin\Projects\VS2022\PO\MinecraftModpackLauncher\MinecraftModpackLauncher\obj\Release\net8.0-windows\MinecraftModpackLauncher.LauncherForm.resources
+C:\Users\Kirin\Projects\VS2022\PO\MinecraftModpackLauncher\MinecraftModpackLauncher\obj\Release\net8.0-windows\MinecraftModpackLauncher.csproj.GenerateResource.cache
+C:\Users\Kirin\Projects\VS2022\PO\MinecraftModpackLauncher\MinecraftModpackLauncher\obj\Release\net8.0-windows\MinecraftModpackLauncher.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Kirin\Projects\VS2022\PO\MinecraftModpackLauncher\MinecraftModpackLauncher\obj\Release\net8.0-windows\MinecraftModpackLauncher.AssemblyInfoInputs.cache
+C:\Users\Kirin\Projects\VS2022\PO\MinecraftModpackLauncher\MinecraftModpackLauncher\obj\Release\net8.0-windows\MinecraftModpackLauncher.AssemblyInfo.cs
+C:\Users\Kirin\Projects\VS2022\PO\MinecraftModpackLauncher\MinecraftModpackLauncher\obj\Release\net8.0-windows\MinecraftModpackLauncher.csproj.CoreCompileInputs.cache
+C:\Users\Kirin\Projects\VS2022\PO\MinecraftModpackLauncher\MinecraftModpackLauncher\obj\Release\net8.0-windows\MinecraftModpackLauncher.sourcelink.json
+C:\Users\Kirin\Projects\VS2022\PO\MinecraftModpackLauncher\MinecraftModpackLauncher\obj\Release\net8.0-windows\NROSA Launcher.dll
+C:\Users\Kirin\Projects\VS2022\PO\MinecraftModpackLauncher\MinecraftModpackLauncher\obj\Release\net8.0-windows\refint\NROSA Launcher.dll
+C:\Users\Kirin\Projects\VS2022\PO\MinecraftModpackLauncher\MinecraftModpackLauncher\obj\Release\net8.0-windows\NROSA Launcher.pdb
+C:\Users\Kirin\Projects\VS2022\PO\MinecraftModpackLauncher\MinecraftModpackLauncher\obj\Release\net8.0-windows\MinecraftModpackLauncher.genruntimeconfig.cache
+C:\Users\Kirin\Projects\VS2022\PO\MinecraftModpackLauncher\MinecraftModpackLauncher\obj\Release\net8.0-windows\ref\NROSA Launcher.dll

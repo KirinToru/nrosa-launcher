@@ -20,7 +20,7 @@ namespace MinecraftModpackLauncher
         private const string VERSION_FILE_URL = $"https://api.github.com/repos/{GITHUB_USER}/{GITHUB_REPO}/releases/latest";
 
         // Configuration - set to true only for the modpack creator
-        private const bool IS_ADMIN_MODE = false; // Change to true for your version
+        private const bool IS_ADMIN_MODE = true; // Change to true for your version
         private string githubToken = ""; // Optional token for private repos
 
         private string minecraftDirectory = ""; // Main Minecraft folder
@@ -432,6 +432,7 @@ namespace MinecraftModpackLauncher
                 using (var client = new HttpClient())
                 {
                     client.DefaultRequestHeaders.Add("User-Agent", "MinecraftModpackLauncher");
+                    client.Timeout = TimeSpan.FromSeconds(1800);
 
                     // If it's an archive, download and extract
                     if (fileInfo.IsArchive)
@@ -454,36 +455,85 @@ namespace MinecraftModpackLauncher
             }
         }
 
+        private async Task DownloadWithRetry(string url, string filePath, int maxRetries = 3)
+        {
+            for (int attempt = 1; attempt <= maxRetries; attempt++)
+            {
+                try
+                {
+                    using (var client = new HttpClient())
+                    {
+                        client.Timeout = TimeSpan.FromMinutes(30);
+                        client.DefaultRequestHeaders.Add("User-Agent", "MinecraftModpackLauncher");
+
+                        using (var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
+                        using (var streamToReadFrom = await response.Content.ReadAsStreamAsync())
+                        using (var streamToWriteTo = File.OpenWrite(filePath))
+                        {
+                            await streamToReadFrom.CopyToAsync(streamToWriteTo);
+                            return; // Success
+                        }
+                    }
+                }
+                catch (Exception ex) when (attempt < maxRetries)
+                {
+                    LogMessage($"Attempt {attempt} failed: {ex.Message}");
+                    LogMessage($"Retrying in 5 seconds...");
+                    await Task.Delay(5000);
+                }
+            }
+
+            throw new Exception($"Failed to download after {maxRetries} attempts");
+        }
+
         private async Task DownloadAndExtractArchive(ModpackFileInfo fileInfo, string targetPath, HttpClient client)
         {
             // Download archive to temp
             var tempZipPath = Path.GetTempFileName();
-            var zipBytes = await client.GetByteArrayAsync(fileInfo.DownloadUrl);
-            await File.WriteAllBytesAsync(tempZipPath, zipBytes);
 
-            // Determine target folder based on archive name
-            var targetFolder = Path.GetDirectoryName(targetPath);
-            if (fileInfo.RelativePath.Contains("mods"))
-                targetFolder = Path.Combine(gameDirectory, "mods");
-            else if (fileInfo.RelativePath.Contains("resourcepacks"))
-                targetFolder = Path.Combine(gameDirectory, "resourcepacks");
-            else if (fileInfo.RelativePath.Contains("datapacks"))
-                targetFolder = Path.Combine(gameDirectory, "datapacks");
-            else if (fileInfo.RelativePath.Contains("shaderpacks"))
-                targetFolder = Path.Combine(gameDirectory, "shaderpacks");
-
-            // Remove old files in folder
-            if (Directory.Exists(targetFolder))
+            try
             {
-                Directory.Delete(targetFolder, true);
+                LogMessage($"Downloading archive: {fileInfo.RelativePath}");
+
+                await DownloadWithRetry(fileInfo.DownloadUrl, tempZipPath);
+                var fileInfoObj = new FileInfo(tempZipPath);
+                LogMessage($"Download completed: {fileInfoObj.Length / 1024 / 1024}MB");
+
+                // Determine target folder based on archive name
+                var targetFolder = Path.GetDirectoryName(targetPath);
+                if (fileInfo.RelativePath.Contains("mods"))
+                    targetFolder = Path.Combine(gameDirectory, "mods");
+                else if (fileInfo.RelativePath.Contains("resourcepacks"))
+                    targetFolder = Path.Combine(gameDirectory, "resourcepacks");
+                else if (fileInfo.RelativePath.Contains("datapacks"))
+                    targetFolder = Path.Combine(gameDirectory, "datapacks");
+                else if (fileInfo.RelativePath.Contains("shaderpacks"))
+                    targetFolder = Path.Combine(gameDirectory, "shaderpacks");
+
+                // Remove old files in folder
+                if (Directory.Exists(targetFolder))
+                {
+                    LogMessage($"Cleaning folder: {targetFolder}");
+                    Directory.Delete(targetFolder, true);
+                }
+                Directory.CreateDirectory(targetFolder);
+
+                // Extract archive
+                LogMessage($"Extracting archive to: {targetFolder}");
+                ZipFile.ExtractToDirectory(tempZipPath, targetFolder);
+                LogMessage($"Extraction completed");
+
+                // Delete temp file
+                File.Delete(tempZipPath);
             }
-            Directory.CreateDirectory(targetFolder);
-
-            // Extract archive
-            System.IO.Compression.ZipFile.ExtractToDirectory(tempZipPath, targetFolder);
-
-            // Delete temp file
-            File.Delete(tempZipPath);
+            catch (Exception ex)
+            {
+                LogMessage($"Error processing archive: {ex.Message}");
+                // Clean up temp file on error
+                if (File.Exists(tempZipPath))
+                    File.Delete(tempZipPath);
+                throw;
+            }
         }
 
         private void PlayButton_Click(object sender, EventArgs e)
